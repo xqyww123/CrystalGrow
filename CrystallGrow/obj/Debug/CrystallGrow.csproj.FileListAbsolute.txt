@@ -1,1 +1,9 @@
 D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\bin\Debug\CrystallGrow.exe.config
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\bin\Debug\CrystallGrow.exe
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\bin\Debug\CrystallGrow.pdb
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\CrystallGrow.csprojResolveAssemblyReference.cache
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\CrystallGrow.exe
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\CrystallGrow.pdb
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\CrystallGrow.AForm.resources
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\CrystallGrow.csproj.GenerateResource.Cache
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\bin\Debug\SVGLib.dll
