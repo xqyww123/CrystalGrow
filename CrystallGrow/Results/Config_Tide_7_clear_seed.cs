@@ -28,7 +28,7 @@ namespace CrystallGrow
         public static Func<double, double, double, double> GetLocalPower = (p, x, y) =>
         {
             var r = GetDistance(x, y);
-            return DiffuseG * p / (Math.Pow(r, 2.0));
+            return DiffuseG * p / (Math.Pow(r, 2.4));
         };
 
         /// <summary>
@@ -36,10 +36,10 @@ namespace CrystallGrow
         /// </summary>
         public static Func<double, double> DieEnergy = d =>
         {
-            return d > 10 ? Math.Pow(d, 1.25)*0.1 : 2;
+            return d > 10 ? Math.Pow(d, 1.19)*0.1 : 2;
         };
 
-        public static Func<int, int> PurposeEnergy = i => (int)Math.Ceiling(Math.Pow(i, 0.5) * 12.1);
+        public static Func<int, int> PurposeEnergy = i => (int)Math.Ceiling(Math.Pow(i, 0.5) * 35.1);
 
         /// <summary>
         /// double EnergyReleaseRate(double orgin_plan_add_energy);
@@ -53,7 +53,7 @@ namespace CrystallGrow
         /// <summary>
         /// Size -> ExpectCrystallCount
         /// </summary>
-        public static Func<int, int> ExpectCrystallCount = i => (int) Math.Ceiling(Math.Pow(i, 0.4));
+        public static Func<int, int> ExpectCrystallCount = i => (int) Math.Ceiling(Math.Pow(i, 0.5) * 6);
 
         /// <summary>
         /// (return Dec num) CrowDec(double distance, double origin_power)
@@ -61,7 +61,7 @@ namespace CrystallGrow
         public static Func<double, double, double> CrowDec = (d, p) =>
         {
             d = Math.Max(d, 0);
-            return (d <= 0) ? p*(0.1*Math.Pow(d + 1, -1)) : 0;
+            return (d <= 5) ? p*(0.05*Math.Pow(d + 1, -1)) : 0;
         };
 
         public static Func<double, double> PowerToR = d => d;
@@ -69,7 +69,7 @@ namespace CrystallGrow
         /// <summary>
         /// Size -> Expect Energy Source Count
         /// </summary>
-        public static Func<int, int> ExpectEnergySourceNum = d => (int)Math.Pow(d, 0.5) * 2;
+        public static Func<int, int> ExpectEnergySourceNum = d => (int)Math.Pow(d, 0.5) * 3;
 
         public const int InitPower = 6;
         public static Func<int, int> SeedRate = i => (int)Math.Ceiling(Math.Pow(i, 0.5));

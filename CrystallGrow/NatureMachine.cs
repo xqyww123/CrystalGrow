@@ -79,7 +79,8 @@ namespace CrystallGrow
             double maxl = 0;
             foreach (var c in Crystalls)
             {
-                double now = Config.GetLocalPower(c.Power, x - c.X, y - c.Y);
+                double r = Config.PowerToR(c.Power);
+                double now = Config.GetLocalPower(c.Power, x - c.X, y - c.Y, r);
                 if (now < 0)
                     Debugger.Break();
                 if (maxl < now)
@@ -170,13 +171,30 @@ namespace CrystallGrow
             Console.Write("CSNUM : {0}, ", csnum);
         }
 
+       /* private static int last_anneal_time = 0;
+        public void Annealing()
+        {
+            if (time - last_anneal_time < Config.MinAnnealInterval) return;
+            if (Rand.NextDouble() > Config.AnnealInvokeP(time - last_anneal_time))
+                return;
+            var cl = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Annealing!!");
+            Console.ForegroundColor = cl;
+            last_anneal_time = time;
+            foreach (var c in Crystalls)
+                c.Power -= Config.AnnealDecPower(c.Power);
+        }*/
+
         private static int time = 0;
-        public void GameOne()
+        public void GameOne(bool seed, bool enable_anneal = true)
         {
             Console.Write("{0} : ", time++);
-            SeedFall();
+            if (seed)
+                SeedFall();
             EnergyFall();
             //Crowd();
+            //if (enable_anneal) Annealing();
             DieCrys();
 
             double avglife = 0, maxlen = 0, mpow = 0;
@@ -209,10 +227,9 @@ namespace CrystallGrow
         private static float Root3 = (float)Math.Sqrt(3);
         public void Draw(string adress)
         {
-            var doc = new SVGLib.SvgDoc();
-            var root = doc.CreateNewDocument();
-            root.Width = Width.ToString()+"px";
-            root.Height = Height.ToString() + "px";
+            var writer = new StreamWriter(new FileStream(adress, FileMode.Create, FileAccess.Write), Encoding.UTF8);
+            writer.Write("<?xml version=\"1.0\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \n\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n");
+            writer.Write("<svg width=\"{0}px\" height=\"{1}px\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n", Width, Height);
 
             var crys = Crystalls.ToArray();
             Array.Sort(crys, new CrystallPowerComparer());
@@ -225,28 +242,21 @@ namespace CrystallGrow
 
             var brush = new SolidBrush(Color.Black);
             var pen = new Pen(Color.White, 2);
-            var pstr = new StringBuilder();
             for (int i = crys.Length - 1; i >= 0; --i)
             {
                 var c = crys[i];
                 var r = Config.PowerToR(c.Power);
-                pstr.Clear();
+                writer.Write("<polygon points=\"");
                 for (int j = 0; j < 6; j++)
                 {
                     cpol[j].X = (float)c.X + pol_src[j].X*(float)r;
                     cpol[j].Y = (float)c.Y + pol_src[j].Y * (float)r;
-                    pstr.AppendFormat("{0},{1} ", cpol[j].X, cpol[j].Y);
+                    writer.Write("{0},{1} ", cpol[j].X, cpol[j].Y);
                 }
-                doc.AddElement(root, new SvgPolygon(doc, pstr.ToString()));
-                for (int j = 0; j < 6; j++)
-                {
-                    int nj = (j + 1)%6;
-                    doc.AddElement(root,
-                        new SvgLine(doc, cpol[j].X.ToString(), cpol[j].Y.ToString(), cpol[nj].X.ToString(),
-                            cpol[nj].Y.ToString(), Color.White) { StrokeWidth = "1", });
-                }
+                writer.Write("\" style=\"fill:black;stroke:white;stroke-width:1\"/>\n");
             }
-            doc.SaveToFile(adress);
+            writer.Write("</svg>\n");
+            writer.Dispose();
 
             /*int enfMetafileHandle = meta.GetHenhmetafile().ToInt32();
             int bufferSize = GetEnhMetaFileBits(enfMetafileHandle, 0, null); // Get required buffer size.  

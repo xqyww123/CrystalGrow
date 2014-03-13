@@ -79,19 +79,19 @@ namespace CrystallGrow
 
 
 
-        public static double TideRMax = 2000, TideMinPeer = 0.3, TidePeerCnt = 4.3;
+        public static double TideRMax = 2000, TideMinPeer = 0.35, TidePeerCnt = 2;
         private static double tideA, TidePeerLen;
         public static double TideFunc(double r)
         {
             double mr = (r/TideRMax)*tideA;
-            var re = Math.Exp(-mr) * Math.Pow(Math.Sin(Math.Pow((r / TideRMax) * TidePeerLen, 0.35)), 2);
+            var re = Math.Exp(-mr) * Math.Pow(Math.Sin(Math.Pow((r / TideRMax) * TidePeerLen, 0.3)), 2);
             //re += 0.4;
             return Math.Max(0, re);
         }
         public static void InitFide()
         {
             tideA = -Math.Log(TideMinPeer);
-            TidePeerLen = Math.Pow(TidePeerCnt*2*Math.PI, 1/0.35);
+            TidePeerLen = Math.Pow(TidePeerCnt*2*Math.PI, 1/0.25);
         }
         public static double[,] GenerateTide(int width, int height)
         {
