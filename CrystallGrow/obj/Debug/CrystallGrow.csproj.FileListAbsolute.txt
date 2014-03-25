@@ -7,3 +7,5 @@ D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\Cry
 D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\CrystallGrow.AForm.resources
 D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\obj\Debug\CrystallGrow.csproj.GenerateResource.Cache
 D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\bin\Debug\SVGLib.dll
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\bin\Debug\Newtonsoft.Json.dll
+D:\XeroEssential\MyCode\Developing\Tools\CrystallGrow\CrystallGrow\bin\Debug\Newtonsoft.Json.xml
